@@ -1,0 +1,64 @@
+circle.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+rect.node {
+  stroke: #fff;
+  stroke-width: 1.5px;
+}
+
+polygon.node {
+stroke:purple;
+stroke-width:2;
+}
+
+line.link {
+  stroke-opacity: .6;
+}
+
+.pnames {
+  font-family: "sans-serif";
+  fill: "red";
+  color: "red";
+}
+
+td.data {
+  text-align: center;
+  vertical-align: middle;
+}
+
+h2 {
+    text-align: center;
+}
+
+table#dropMenu {
+    text-align:center; 
+    margin-left:auto; 
+    margin-right:auto; 
+}
+
+div.content {
+    width:98%; 
+    margin:1%;
+  }
+
+table#tableMenu {
+    text-align:center; 
+    margin-left:auto; 
+    margin-right:auto; 
+  }
+
+#chart {
+    text-align: center;
+
+}
+
+table#table1 {
+    text-align:center; 
+    margin-left:auto; 
+    margin-right:auto; 
+    width:600px;
+  }
+
+tr,td {text-align:left;}
