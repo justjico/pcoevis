@@ -28,10 +28,10 @@ if (!$result) {
 	<title>Force Test</title>
 <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
-<script type="text/javascript" src="d3/d3.v2.js"></script>
+<script type="text/javascript" src="d3/d3.v2.min.js"></script>
 
 <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.18.custom.css" rel="Stylesheet" />	
-<link type="text/css" rel="stylesheet" href="force.css"/>
+<link type="text/css" rel="stylesheet" href="css/force.css"/>
 </head>
 <body>
 <meta charset="utf-8">
@@ -89,7 +89,7 @@ if (!$result) {
     </form>
 
     <div id="chart"></div>
-    <script type="text/javascript" src="force.js"></script>
+    <script type="text/javascript" src="js/force.js"></script>
     <div style='text-align:right; margin-right:200px'><a href='#' onclick='showLegend();'>Show Legend</a></div>
 		<div id="legend" title="Legend">
 			<table border='1'>
