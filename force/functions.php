@@ -155,8 +155,9 @@ function add_node($row, $pathway, &$output, &$link_qty, $order)
 	if($order == "Adjacency")
 	    $sort = "Adj_correlation";
 	
-	    
-	if($row[$sort] > 0)
+	if($order == "OverlapMetric")
+	    $link['lcolor'] = 'blue';
+	elseif($row[$sort] > 0)
 	    $link['lcolor'] = 'green';
 	else
 	    $link['lcolor'] = 'red';
