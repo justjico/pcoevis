@@ -9,6 +9,12 @@ if(!isset($_REQUEST['limit']) || $_REQUEST['limit'] > 630)
   $limit = 20;
 else
   $limit = $_REQUEST['limit'];
+  
+$order = 0;
+if(isset($_REQUEST['order']))
+  $order = $_REQUEST['order'];  
+  
+$order = getOrder($order);
 
 require_once("connect.php");
 
@@ -19,7 +25,7 @@ $pathname = $pathway;
 if(isset($_REQUEST['pathname']))
   $pathname = mysql_real_escape_string($_REQUEST['pathname']);
 
-$query = sprintf("SELECT * from pathways where PA_id = '%s' OR PB_id = '%s' ORDER BY Adjacency DESC LIMIT $limit",$pathway,$pathway);
+$query = sprintf("SELECT * from pathways where PA_id = '%s' OR PB_id = '%s' ORDER BY $order DESC LIMIT $limit",$pathway,$pathway);
 
 // Perform Query
 $result = mysql_query($query);
@@ -39,14 +45,16 @@ $node_list = array();
 $first = TRUE;
 $strongest = 0;
 
+
+
 while ($row = mysql_fetch_assoc($result)) {
     if( $first )
     {
-      $strongest = $row['Adjacency'];
+      $strongest = $row[$order];
       $first = FALSE;
     }
-    
-    add_node_table($row, $pathway, $table, $node_names, $node_list);
+
+    add_node_table($row, $pathway, $table, $node_names, $order);
 }
 
 mysql_free_result($result);

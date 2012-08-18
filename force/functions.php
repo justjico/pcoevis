@@ -73,9 +73,9 @@ function get_size($str)
 
 }
 
-function add_node_table($row, $pathway, &$table, &$node_names)
+function add_node_table($row, $pathway, &$table, &$node_names, $order)
 {
-    
+
     $PA_id = $row['PA_id'];
     $PB_id = $row['PB_id'];
     
@@ -96,8 +96,12 @@ function add_node_table($row, $pathway, &$table, &$node_names)
         $node_names[$PB_id] = $row['PathwayB'];   
 	}
 	
+	$sort = $order;
 	
-	if($row['Adj_correlation'] > 0)
+	if($order == "Adjacency")
+	    $sort = "Adj_correlation";
+	
+	if($row[$sort] > 0)
 	    $color = 'green';
 	else
 	    $color = 'red';
@@ -115,7 +119,7 @@ function add_node_table($row, $pathway, &$table, &$node_names)
 	$table[$target]['color'] = $color;
 }
 
-function add_node($row, $pathway, &$output, &$link_qty)
+function add_node($row, $pathway, &$output, &$link_qty, $order)
 {
 
     $links = &$output["links"];
@@ -145,7 +149,14 @@ function add_node($row, $pathway, &$output, &$link_qty)
 	  $nodes[] = $node;
 	}
 	
-	if($row['Adj_correlation'] > 0)
+	
+	$sort = $order;
+	
+	if($order == "Adjacency")
+	    $sort = "Adj_correlation";
+	
+	    
+	if($row[$sort] > 0)
 	    $link['lcolor'] = 'green';
 	else
 	    $link['lcolor'] = 'red';
@@ -161,11 +172,11 @@ function add_node($row, $pathway, &$output, &$link_qty)
 	else
 	  $link_qty[$row['PB_id']] += 1;
 
-	$link['value'] = ceil($row['Adjacency']*100);
+	$link['value'] = ceil($row[$order]*100);
 	$link['source'] = $row['PA_id'];
 	$link['target'] = $row['PB_id'];  
 	$link['lname'] = "l".$row['PA_id']."l".$row['PB_id']."l";
-	$link['adj'] = number_format($row['Adjacency'],5)."";
+	$link['adj'] = number_format($row[$order],5)."";
 	$links[] = $link;
 }
 
@@ -232,4 +243,27 @@ function reindex_nodes(&$output)
       $link['source'] = $node_list[$link['source']];
       $link['target'] = $node_list[$link['target']];
     }
+}
+
+function getOrder($order)
+{
+    switch ($order){
+		case 0:
+			return "Adjacency";
+			break;
+		case 1:
+			return "Correlation";
+			break;
+		case 2:
+			return "Adj_correlation";
+			break;
+		case 3:
+			return "OverlapMetric";	
+			break;
+		default:
+			return "Adjacency";
+			break;
+    }
+    
+    return "";
 }

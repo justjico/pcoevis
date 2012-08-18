@@ -59,20 +59,18 @@ $(function() {
 
 function chgPathway()
 {
-
-var shownames = $("#shownames").is(':checked');
-
-var select_list_field = document.getElementById('pathway');
-var select_list_selected_index = select_list_field.selectedIndex;
-
-var pathname = select_list_field.options[select_list_selected_index].text;
-
-$("#pname").text(pathname);
-
-reloadjson( $("#pathway").val(), pathname, $( "#slider-node-num" ).slider( "value" ), $( "#slider-distance" ).slider( "value" ), $("#edges").val(), shownames );
-
-
-$("#y").load("single_table.php?pathway=" + $("#pathway").val()+"&limit="+$( "#slider-node-num" ).slider( "value" ));
+  var shownames = $("#shownames").is(':checked');
+  
+  var select_list_field = document.getElementById('pathway');
+  var select_list_selected_index = select_list_field.selectedIndex;
+  
+  var pathname = select_list_field.options[select_list_selected_index].text;
+  
+  $("#pname").text(pathname);
+  
+  reloadjson( $("#pathway").val(), pathname, $( "#slider-node-num" ).slider( "value" ), $( "#slider-distance" ).slider( "value" ), $("#edges").val(),$("#order").val(), shownames );
+   
+  $("#y").load("single_table.php?pathway=" + $("#pathway").val()+"&order="+$("#order").val()+"&limit="+$( "#slider-node-num" ).slider( "value" ));
 
 }	
 
@@ -96,7 +94,7 @@ function addException(key)
   
 }
     
-function reloadjson(pathway, name, limit, distance, edges, shownames){
+function reloadjson(pathway, name, limit, distance, edges, order, shownames){
 
 if(pathway=="")
 {
@@ -104,7 +102,7 @@ if(pathway=="")
   name = "Citrate cycle (TCA cycle) (KEGG)";
 }
 
-file = "nodes.php?pathway=" + escape(pathway) +"&limit="+limit + "&pathname=" + name + "&edges=" + edges  ;
+file = "nodes.php?pathway=" + escape(pathway) +"&limit="+limit + "&pathname=" + name + "&order=" + order + "&edges=" + edges  ;
 
 d3.json(file, function(json) {
 

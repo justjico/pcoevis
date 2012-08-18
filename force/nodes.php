@@ -17,6 +17,12 @@ if(isset($_REQUEST['exceptions']))
 $edges = 0;
 if(isset($_REQUEST['edges']))
   $edges = $_REQUEST['edges'];
+  
+$order = 0;
+if(isset($_REQUEST['order']))
+  $order = $_REQUEST['order'];  
+  
+$order = getOrder($order);
 
 require_once("connect.php");
 
@@ -30,11 +36,11 @@ if(isset($_REQUEST['pathname']))
 if(count($exceptions) > 1)
   {
     $exceptions = implode(",",$exceptions);
-    $query = sprintf("SELECT * from pathways where (PA_id = '%s' OR PB_id = '%s') AND (PA_id NOT IN ($exceptions) AND PB_id NOT IN ($exceptions)) ORDER BY Adjacency DESC LIMIT $limit",$pathway,$pathway);
+    $query = sprintf("SELECT * from pathways where (PA_id = '%s' OR PB_id = '%s') AND (PA_id NOT IN ($exceptions) AND PB_id NOT IN ($exceptions)) ORDER BY $order DESC LIMIT $limit",$pathway,$pathway);
   }
 else
   {
-    $query = sprintf("SELECT * from pathways where PA_id = '%s' OR PB_id = '%s' ORDER BY Adjacency DESC LIMIT $limit",$pathway,$pathway);
+    $query = sprintf("SELECT * from pathways where PA_id = '%s' OR PB_id = '%s' ORDER BY $order DESC LIMIT $limit",$pathway,$pathway);
   }
 // Perform Query
 $result = mysql_query($query);
@@ -73,13 +79,13 @@ while ($row = mysql_fetch_assoc($result)) {
 
     if( $first )
     {
-      $strongest = $row['Adjacency'];
+      $strongest = $row[$order];
       $first = FALSE;
     }
          
-    add_node($row, $pathway, $output, $link_qty);
+    add_node($row, $pathway, $output, $link_qty, $order);
 	
-	$weakest = $row['Adjacency'];
+	$weakest = $row[$order];
 }
 
 mysql_free_result($result);
@@ -91,7 +97,7 @@ if($edges > 0)
 	
 	$limitquery = " LIMIT $limit";
 	
-	$query2 = sprintf("SELECT * from pathways where PA_id IN(%s) AND PB_id IN(%s) AND Adjacency > %d ORDER by Adjacency DESC ",$nlist,$nlist,$strongest);
+	$query2 = sprintf("SELECT * from pathways where PA_id IN(%s) AND PB_id IN(%s) AND $order > %d ORDER BY $order DESC ",$nlist,$nlist,$strongest);
 	
 	if($edges == 1)
 	  $query2.= $limitquery;
@@ -108,7 +114,7 @@ if($edges > 0)
 	}
 	
 	while ($row = mysql_fetch_assoc($result2)) {         
-		add_node($row, $pathway, $output, $link_qty);
+		add_node($row, $pathway, $output, $link_qty, $order);
 	}
 
 	// Free the resources associated with the result set
@@ -129,4 +135,3 @@ $output["node_list"] = implode(",",$output['node_list']);
 echo json_encode($output);
 
 
-?>

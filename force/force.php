@@ -78,6 +78,16 @@ if (!$result) {
     </tr>
     <tr>
     <td>
+    <select onChange="chgPathway()" id="order" name="order">
+        <option selected value="0">Adjacency</option>
+        <option value="1">Correlation</option>
+        <option value="2">Adjusted Correlation</option>
+        <option value="3">Overlap Metric</option>
+    </select>
+    </td>
+    </tr>
+    <tr>
+    <td>
     <select onChange="chgPathway()" id="edges" name="edges">
         <option selected value="0">Only direct connections</option>
         <option value="1">Top edges</option>
@@ -98,19 +108,19 @@ if (!$result) {
 			  <th>Source</th>
 			</tr>
 			<tr>
-			  <td align='center'><img src="images/square.gif"></td>
+			  <td align='center'><img src="img/square.gif"></td>
 			  <td>Reactome</td>
 			</tr>
 			<tr>
-			  <td align='center'> <img src="images/circle.gif"></td>
+			  <td align='center'> <img src="img/circle.gif"></td>
 			  <td>KEGG</td>
 			</tr>
 			<tr>
-			  <td align='center'><img src="images/triangle.gif"></td>
+			  <td align='center'><img src="img/triangle.gif"></td>
 			  <td>Static Module</td>
 			</tr>
 			<tr>
-			  <td align='center'><img src="images/rombus.gif"></td>
+			  <td align='center'><img src="img/rombus.gif"></td>
 			  <td>Wikipaths</td>
 			</tr>
 			</table>
