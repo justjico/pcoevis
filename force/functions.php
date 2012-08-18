@@ -102,10 +102,16 @@ function add_node_table($row, $pathway, &$table, &$node_names)
 	else
 	    $color = 'red';
 	
-	$value = number_format($row['Adjacency'],5);
+	$overlap_metric = number_format($row['OverlapMetric'],5);
+	$corr = number_format($row['Correlation'],5);
+	$adj_corr = number_format($row['Adj_correlation'],5);
+	$adj = number_format($row['Adjacency'],5);
 		
 	$table[$target]['overlap'] = $row['Overlap'];
-	$table[$target]['value'] = $value;
+	$table[$target]['adj'] = $adj;
+	$table[$target]['overlap_metric'] = $overlap_metric;
+	$table[$target]['corr'] = $corr;
+	$table[$target]['adj_corr'] = $adj_corr;
 	$table[$target]['color'] = $color;
 }
 

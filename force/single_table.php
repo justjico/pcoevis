@@ -19,7 +19,7 @@ $pathname = $pathway;
 if(isset($_REQUEST['pathname']))
   $pathname = mysql_real_escape_string($_REQUEST['pathname']);
 
-$query = sprintf("SELECT * from net where PA_id = '%s' OR PB_id = '%s' ORDER BY Adjacency DESC LIMIT $limit",$pathway,$pathway);
+$query = sprintf("SELECT * from pathways where PA_id = '%s' OR PB_id = '%s' ORDER BY Adjacency DESC LIMIT $limit",$pathway,$pathway);
 
 // Perform Query
 $result = mysql_query($query);
@@ -59,6 +59,9 @@ echo "<thead>";
 echo "<tr>";
 echo "<th>Pathway name</th>";
 echo "<th>Gene Overlap</th>";
+echo "<th>Overlap Metric</th>";
+echo "<th>Correlation</th>";
+echo "<th>Adjusted Correlation</th>";
 echo "<th>Adjacency</th>";
 echo "</tr>";
 echo "</thead>";
@@ -67,9 +70,12 @@ echo "<tbody>";
 foreach($table as $key => &$row)
 {
   echo "<tr>";
-  echo "<td><a href='#$key' onclick='selectPath($key);'>$node_names[$key]</a>&nbsp;&nbsp;<a href='#$key-remove' onclick='addException($key)'>Remove</a></td>";
+  echo "<td><a href='#$key' onclick='selectPath($key);'>$node_names[$key]</a>&nbsp;&nbsp;<a href='#$key-remove' onclick='addException($key)'><img src='img/remove.png' border=0></a></td>";
   echo "<td class='data'>$row[overlap]</td>";
-  echo "<td class='data'><font color='$row[color]'>$row[value]</font></td>";
+  echo "<td class='data'>$row[overlap_metric]</td>";
+  echo "<td class='data'>$row[corr]</td>";
+  echo "<td class='data'>$row[adj_corr]</td>";
+  echo "<td class='data'><font color='$row[color]'>$row[adj]</font></td>";
   echo "</tr>";
 }
 

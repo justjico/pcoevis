@@ -83,6 +83,8 @@ function addException(key)
     nodeExceptions.push(key);
   
   d3.select("#i" + key).remove();
+  d3.select("#i" + key + "_back").remove();
+  d3.select("#i" + key + "_text").remove();
   
   var s = svg.selectAll("line.link").each(function(){  
 	  var name = this.id;
@@ -208,6 +210,7 @@ d3.json(file, function(json) {
 			  .attr("height","15")
 			  .attr("stroke-width",".2px")
 			  .attr("stroke","black")
+			  .attr("id",function(d){ return d.id + "_back"; })
 			  .attr("fill-opacity",.7);
 		  
 	  var text = svg.selectAll("text")
@@ -218,6 +221,7 @@ d3.json(file, function(json) {
 			  .style("fill","darkblue")
 			  .style("font-family","sans-serif")
 			  .style("font-size","10px")
+			  .attr("id",function(d){ return d.id + "_text"; })
 			  .text(function(d){ return d.name; });
   }
           
