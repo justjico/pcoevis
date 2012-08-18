@@ -30,11 +30,11 @@ if(isset($_REQUEST['pathname']))
 if(count($exceptions) > 1)
   {
     $exceptions = implode(",",$exceptions);
-    $query = sprintf("SELECT * from net where (PA_id = '%s' OR PB_id = '%s') AND (PA_id NOT IN ($exceptions) AND PB_id NOT IN ($exceptions)) ORDER BY Adjacency DESC LIMIT $limit",$pathway,$pathway);
+    $query = sprintf("SELECT * from pathways where (PA_id = '%s' OR PB_id = '%s') AND (PA_id NOT IN ($exceptions) AND PB_id NOT IN ($exceptions)) ORDER BY Adjacency DESC LIMIT $limit",$pathway,$pathway);
   }
 else
   {
-    $query = sprintf("SELECT * from net where PA_id = '%s' OR PB_id = '%s' ORDER BY Adjacency DESC LIMIT $limit",$pathway,$pathway);
+    $query = sprintf("SELECT * from pathways where PA_id = '%s' OR PB_id = '%s' ORDER BY Adjacency DESC LIMIT $limit",$pathway,$pathway);
   }
 // Perform Query
 $result = mysql_query($query);
@@ -91,7 +91,7 @@ if($edges > 0)
 	
 	$limitquery = " LIMIT $limit";
 	
-	$query2 = sprintf("SELECT * from net where PA_id IN(%s) AND PB_id IN(%s) AND Adjacency > %d ORDER by Adjacency DESC ",$nlist,$nlist,$strongest);
+	$query2 = sprintf("SELECT * from pathways where PA_id IN(%s) AND PB_id IN(%s) AND Adjacency > %d ORDER by Adjacency DESC ",$nlist,$nlist,$strongest);
 	
 	if($edges == 1)
 	  $query2.= $limitquery;
